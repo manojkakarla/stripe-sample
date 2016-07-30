@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Traveler App</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' type='text/css'/>
+  <link rel='stylesheet' href='style.css' type='text/css'/>
+  <link rel="shortcut icon" type="image/png" href="favicon.png">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <script type="text/javascript">
+    Stripe.setPublishableKey('pk_test_a9H4axXTiJGJsgUOAD7dYM6S');
+  </script>
+  <script type="text/javascript" src="custom.js"></script>
+</head>
+<body>
+<div class="container">
+
+  <div class="afterlogin" style="display:none;">
+    <div class="col-lg-12 col-sm-12">
+      <a href="javascript:void(0)" onclick="travelerLogout()" class="travelerlogout">Logout</a>
+      <div class="card hovercard">
+        <div class="card-background">
+          <img class="card-bkimg" alt="" src="bg.png">
+        </div>
+        <div class="useravatar">
+          <img alt="" src="logo-circle.png">
+        </div>
+        <div class="card-info">
+          <span class="card-title travelerInfo"></span><br>
+          <span class="card-title clientInfo"></span><br>
+          <span class="card-title travelerEmail"></span>
+        </div>
+      </div>
+
+      <div class="well">
+      <span id="api-errors" class="alert alert-danger"></span>
+        <div class="tab-content">
+          <h3>Cards
+            <button type="button" style="float:right" class="btn btn-primary btn-small" data-toggle="modal"
+                    data-target="#myModal">Add Card
+            </button>
+          </h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Type</th>
+              <th>Expiry Month</th>
+              <th>Expiry Year</th>
+              <th>Last4</th>
+              <th>Brand</th>
+              <th>Country</th>
+              <th>Default</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody class="travelercards"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="beforelogin">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 " style="margin-top:250px;">
+        <div class="col-sm-4 ">&nbsp;</div>
+        <div class="col-sm-4 "><a href="#" class="btn btn-info btn-lg btn-block lws" title="Login With Slack">Login With
+          Slack</a></div>
+        <div class="col-sm-4 ">&nbsp;</div>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Card</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="col-sm-6">
+
+            <form class="form-horizontal" role="form" action="" method="POST" id="payment-form">
+              <span class="col-sm-11 payment-errors alert alert-danger"></span>
+              <div class="form-group">
+                <label for="card-number" class="col-sm-3 control-label">Card Number</label>
+                <div class="col-sm-5">
+                  <input id="card-number" type="text" data-stripe="number" size="20" class="form-control"
+                         placeholder="XXXX XXXX XXXX XXXX">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="expiry-month" class="col-sm-3 control-label">Expiration</label>
+                <div class="col-xs-2">
+                  <input id="expiry-month" type="text" data-stripe="exp_month" size="2" class="form-control"
+                         placeholder="MM">
+                </div>
+                <div class="col-xs-3">
+                  <input type="text" data-stripe="exp_year" size="2" class="form-control" placeholder="YYYY">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cvv" class="col-sm-3 control-label">CVV</label>
+                <div class="col-sm-2">
+                  <input id="cvv" type="text" data-stripe="cvc" size="4" class="form-control" placeholder="***">
+                </div>
+                <p class="cvv-info small">3 or 4 digits usually found<br> on the signature strip</p>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                  <input type="submit" class="btn btn-success submit" value="Add">
+
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</body>
+</html>
