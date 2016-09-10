@@ -150,11 +150,17 @@ function addCard(token) {
 }
 
 function displayError(err) {
-    var message = '';
-    if (err.status != 500)
-        message = JSON.parse(err.responseText).message;
-    else
-        message = err.responseText;
-    $('#api-errors').text(message).css("display", "block");
+    if (err.status == 401) {
+        console.log(err);
+        travelerLogout();
+    } else {
+        var message = '';
+        if (err.status != 500) {
+            message = JSON.parse(err.responseText).message;
+        } else {
+            message = err.responseText;
+        }
+        $('#api-errors').text(message).css("display", "block");
+    }
 }
 
